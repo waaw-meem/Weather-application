@@ -1,0 +1,11 @@
+<div class="main-container">
+  <app-weather-search
+    (weatherData)="setWeatherData($event)"
+    (unitChange)="onUnitChange($event)"
+  ></app-weather-search>
+
+  <app-weather-card
+    [response]="getWeatherData"
+    [unit]="selectedUnit"
+  ></app-weather-card>
+</div>

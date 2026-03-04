@@ -1,59 +1,143 @@
 # WeatherApp
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
+WeatherApp is a simple single-page application built with Angular that allows users to search for current weather and short-term forecasts for cities around the world. The UI consists of a search component where a user types a location, and a card component that displays temperature, conditions, and other details retrieved from a third‑party API.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- Search for a city's weather by name
+- Display 5‑day / 3‑hour forecast information
+- Responsive layout with header and footer components
+- Modular architecture using Angular feature modules and shared services
+
+## Architecture Overview
+
+The project follows a standard Angular CLI structure:
+
+```
+src/app
+├── core/services        # application-wide services (e.g. WeatherApiService)
+├── features/weather     # weather-related components and module
+│   ├── components      # search and card components
+│   └── home            # landing page for weather search
+├── layout              # header/footer components
+└── shared              # shared module for common imports/exports
+```
+
+### Weather API Service
+
+All API calls are made through `WeatherApiService` located in `core/services`. It wraps the HTTP requests and exposes an `searchWeather` method that returns an `Observable`.
+
+```ts
+private API_BASE_URL = 'https://api.openweathermap.org/data/2.5/forecast';
+private API_KEY = '<your_api_key_here>';
+```
+
+> **Note:** This application uses the **OpenWeatherMap** service. You can obtain a free API key by signing up at [https://openweathermap.org/api](https://openweathermap.org/api). The current key in the code is for demo purposes and should be replaced with your own for production use.
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) v16 or later
+- [npm](https://www.npmjs.com/) (comes bundled with Node.js)
+- Angular CLI (`npm install -g @angular/cli`)
+
+### Installation
+
+1. Clone the repository and navigate into the project directory:
+
+   ```bash
+   git clone <repo-url> weather-app
+   cd weather-app
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. (Optional) Replace the API key in `src/app/core/services/weather-api.service.ts` with your own OpenWeatherMap key.
+
+### Running the Application
+
+Start a development server with live reload:
 
 ```bash
+npm start
+# or with Angular CLI directly:
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open your browser and go to `http://localhost:4200/`. The app will automatically reload when you make changes to the source files.
 
-## Code scaffolding
+### Building for Production
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Compile the application into the `dist/` directory:
 
 ```bash
-ng generate --help
+ng build --prod
 ```
 
-## Building
+Deploy the contents of `dist/weather-app` to any static hosting service (Firebase, GitHub Pages, Netlify, etc.).
 
-To build the project run:
+### Testing
+
+Run unit tests with Karma:
 
 ```bash
-ng build
+npm test
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+End‑to‑end tests (if configured) can be executed with:
 
 ```bash
-ng test
+npm run e2e
 ```
 
-## Running end-to-end tests
+## Additional Commands
 
-For end-to-end (e2e) testing, run:
+The Angular CLI provides a variety of schematics and tooling. Some useful commands include:
 
 ```bash
-ng e2e
+ng generate component my-component      # scaffold a new component
+ng generate service my-service          # scaffold a new service
+ng lint                                 # run linter
+ng e2e                                  # run end-to-end tests
+``` 
+
+Refer to the [Angular CLI documentation](https://angular.dev/cli) for more details.
+
+## API Information
+
+This app contacts the **OpenWeatherMap 5‑day/3‑hour Forecast API**. The service endpoint used is:
+
+```
+https://api.openweathermap.org/data/2.5/forecast?q={CITY_NAME}&appid={API_KEY}&units=metric
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+You must supply a valid API key (`appid`) and a query string (`q`). Responses are returned in JSON and include temperature, weather conditions, humidity, wind speed, and forecast entries.
 
-## Additional Resources
+### Example Response
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```json
+{
+  "cod": "200",
+  "message": 0,
+  "cnt": 40,
+  "list": [
+    {
+      "dt": 1618317040,
+      "main": { "temp": 12.34, ... },
+      "weather": [{ "description": "clear sky" }],
+      ...
+    }
+    // ... more forecast items
+  ],
+  "city": { "name": "London", ... }
+}
+```
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).

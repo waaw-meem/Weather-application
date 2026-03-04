@@ -1,0 +1,69 @@
+<div class="weather-container" *ngIf="response">
+  <div class="weather-card main-card">
+    <div class="weather-top">
+      <div>
+        <h2>{{ response.city.name }}</h2>
+        <p class="date">
+          {{ response.list[0].dt_txt | date: "fullDate" }}
+        </p>
+        <p class="timezone">
+          Timezone: {{ formatTimezone(response.city.timezone) }}
+        </p>
+      </div>
+
+      <div class="main-icon">
+        <img
+          [src]="
+            'https://openweathermap.org/img/wn/' +
+            response.list[0].weather[0].icon +
+            '@4x.png'
+          "
+          alt="weather icon"
+        />
+      </div>
+    </div>
+
+    <div class="temperature">
+      {{ convertTemp(response.list[0].main.temp) | number: "1.0-0" }}°<span>{{
+        unit
+      }}</span>
+    </div>
+
+    <p class="feels-like">
+      Feels like
+      {{ convertTemp(response.list[0].main.feels_like) | number: "1.0-0" }}°{{
+        unit
+      }}
+    </p>
+  </div>
+
+  <!-- HOURLY FORECAST -->
+  <div class="forecast-section">
+    <h3>Hourly Forecast</h3>
+    <div class="forecast-wrapper">
+      <div class="forecast-card" *ngFor="let item of response.list">
+        <p class="time">
+          {{ item.dt_txt | date: "shortTime" }}
+        </p>
+
+        <img
+          [src]="
+            'https://openweathermap.org/img/wn/' +
+            item.weather[0].icon +
+            '@2x.png'
+          "
+          alt="weather icon"
+        />
+
+        <p class="temp">
+          {{ convertTemp(item.main.temp) | number: "1.0-0" }}°{{ unit }}
+        </p>
+
+        <div class="mini-details">
+          <span>💧 {{ item.main.humidity }}%</span>
+          <span>🌬 {{ item.wind.speed }} m/s</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

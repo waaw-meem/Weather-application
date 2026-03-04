@@ -1,0 +1,29 @@
+<div class="search-wrapper m-3">
+  <div class="search-card">
+    <h2>Check Weather</h2>
+    <p class="subtitle">Enter your city name to get latest weather updates</p>
+
+    <div class="search-box">
+      <form (ngSubmit)="onSearch(city)" #city="ngForm">
+        <input
+          type="text"
+          placeholder="Enter city name..."
+          ngModel
+          name="city"
+        />
+        <button>Search</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="unit-toggle mb-3">
+  <span [class.active]="unit === 'C'">°C</span>
+
+  <label class="switch">
+    <input type="checkbox" (change)="toggleUnit()" />
+    <span class="slider"></span>
+  </label>
+
+  <span [class.active]="unit === 'F'">°F</span>
+</div>

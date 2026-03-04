@@ -24,14 +24,14 @@
     </div>
 
     <div class="temperature">
-      {{ convertTemp(response.list[0].main.temp) | number: "1.0-0" }}°<span>{{
+      {{ convertTemp(response.list[0].main.temp) | number: "1.0-0" }}<sup><i class="bi bi-circle"></i></sup><span>{{
         unit
       }}</span>
     </div>
 
     <p class="feels-like">
       Feels like
-      {{ convertTemp(response.list[0].main.feels_like) | number: "1.0-0" }}°{{
+      {{ convertTemp(response.list[0].main.feels_like) | number: "1.0-0" }}<sup><i class="bi bi-circle"></i></sup>{{
         unit
       }}
     </p>
@@ -56,12 +56,12 @@
         />
 
         <p class="temp">
-          {{ convertTemp(item.main.temp) | number: "1.0-0" }}°{{ unit }}
+          {{ convertTemp(item.main.temp) | number: "1.0-0" }}<sup><i class="bi bi-circle"></i></sup>{{ unit }}
         </p>
 
         <div class="mini-details">
-          <span>💧 {{ item.main.humidity }}%</span>
-          <span>🌬 {{ item.wind.speed }} m/s</span>
+          <span><i class="bi bi-droplet-fill"></i> {{ item.main.humidity }}%</span>
+          <span><i class="bi bi-wind"></i> {{ item.wind.speed }} m/s</span>
         </div>
       </div>
     </div>

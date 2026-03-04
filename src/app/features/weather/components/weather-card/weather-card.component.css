@@ -156,3 +156,19 @@
   }
 
 }
+
+.mini-details span i {
+    color: #44fcff;
+}
+p.temp sup i {
+    font-size: 8px;
+    margin: 0 4px;
+}
+.temperature sup i {
+    font-size: 14px;
+    margin: 0 4px;
+}
+p.feels-like sup i {
+    font-size: 6px;
+    margin: 0 4px;
+}
